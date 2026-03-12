@@ -2,24 +2,48 @@ package br.com.fiap.produtos;
 
 
 import br.com.fiap.produtos.model.Categoria;
-import br.com.fiap.produtos.model.Produto;
 import br.com.fiap.produtos.repository.CategoriaCollectionRepository;
-import br.com.fiap.produtos.repository.ProdutoCollectionRepository;
-
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import br.com.fiap.produtos.view.CategoriaView;
+import br.com.fiap.produtos.view.Opcao;
+import br.com.fiap.produtos.view.OpcaoView;
 
 public class Main {
     public static void main(String[] args) {
 
-        Produto produto = new Produto();
-        produto.setNome("Kindle")
-                .setDescricao("e-reader")
-                .setCategoria(CategoriaCollectionRepository.findByNome("eletrônicos").getFirst())
-                .setDataDeCadastro(LocalDateTime.now())
-                .setPreco(BigDecimal.valueOf(800));
+        Opcao opcao = null;
 
-        Produto produto1 = ProdutoCollectionRepository.save(produto);
-        System.out.println("ID: " + produto1.getId() + ", Nome do produto: " + produto1.getNome());
+        do {
+            opcao = OpcaoView.select();
+            switch (opcao) {
+                case CADASTRAR_CATEGORIA -> cadastrarCategoria();
+                case CADASTRAR_PRODUTO ->  cadastrarProduto();
+                case CONSULTAR_PRODUTO_POR_ID -> consultarProdutoPorId();
+                case CONSULTAR_PRODUTO_POR_CATEGORIA -> consultarProdutoPorCategoria();
+                case ENCERRAR_SISTEMA -> encerrarOSistema();
+            }
+
+        } while(opcao != Opcao.ENCERRAR_SISTEMA);
+    }
+
+    private static void encerrarOSistema() {
+        System.exit(0);
+    }
+
+    private static void consultarProdutoPorCategoria() {
+        
+    }
+
+    private static void consultarProdutoPorId() {
+    }
+
+    private static void cadastrarProduto() {
+        
+    }
+
+    private static void cadastrarCategoria() {
+        CategoriaView view = new CategoriaView();
+        Categoria categoria = view.form();
+        CategoriaCollectionRepository.save(categoria);
+        view.sucesso(categoria);
     }
 }
