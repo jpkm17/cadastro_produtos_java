@@ -4,6 +4,7 @@ import br.com.fiap.produtos.model.Categoria;
 import br.com.fiap.produtos.repository.CategoriaCollectionRepository;
 
 import javax.swing.*;
+import java.util.Locale;
 
 public class CategoriaView {
 
@@ -23,12 +24,17 @@ public class CategoriaView {
         return ret;
     }
 
-    public void sucesso(Categoria categoria) {
-        JOptionPane.showMessageDialog(null, "Categoria " +  categoria.getNome() + " foi salva com sucesso");
+    public void sucesso() {
+        JOptionPane.showMessageDialog(null, "Categoria salva com sucesso!");
     }
 
-    public static Categoria form() {
-        String nome = JOptionPane.showInputDialog(null, "Informe o nome da categoria");
+    public void sucesso(Categoria categoria) {
+        JOptionPane.showMessageDialog(null, "Categoria " +  categoria.getNome().toUpperCase() + " foi salva com sucesso");
+    }
+
+    public static Categoria form(Categoria categoria) {
+        String nome = JOptionPane.showInputDialog(null,
+                "Informe o nome da categoria", categoria!= null? categoria.getNome() : "" );
         return new Categoria(nome);
     }
 

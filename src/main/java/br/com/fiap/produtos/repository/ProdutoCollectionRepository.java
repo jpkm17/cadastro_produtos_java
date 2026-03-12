@@ -34,4 +34,8 @@ public class ProdutoCollectionRepository {
             return null;
         }
     }
+
+    public static List<Produto> findAll() {
+        return produtos;
+    }
 }
