@@ -55,6 +55,13 @@ public class Main {
     }
 
     private static void consultarProdutoPorId() {
+        
+        long valor = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe o id do produto: "));
+
+        Produto produto = ProdutoCollectionRepository.findById(valor);
+
+        ProdutoView view = new ProdutoView();
+        view.show(produto);
     }
 
     private static void cadastrarProduto() {

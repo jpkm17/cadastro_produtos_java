@@ -44,4 +44,10 @@ public class ProdutoCollectionRepository {
         return produtos.stream().filter(p -> p.getCategoria().equals(categoria)).toList();
     }
 
+    public static Produto findById(long id) {
+        return produtos.stream()
+                .filter(p -> p.getId().equals(id))
+                .findFirst()
+                .orElse(null);
+    }
 }
