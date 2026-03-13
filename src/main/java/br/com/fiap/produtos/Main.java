@@ -55,13 +55,22 @@ public class Main {
     }
 
     private static void consultarProdutoPorId() {
+
+        Long id = 0l;
+        do {
+            try {
+                id = Long.parseLong(JOptionPane.showInputDialog("Informe o id do produto"));
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Id inválido!");
+            }
+        } while (id <= 0);
+        Produto p = ProdutoCollectionRepository.findById(id);
         
-        long valor = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe o id do produto: "));
-
-        Produto produto = ProdutoCollectionRepository.findById(valor);
-
-        ProdutoView view = new ProdutoView();
-        view.show(produto);
+        if (p != null) {
+            ProdutoView.show(p);
+        } else {
+            JOptionPane.showMessageDialog(null, "Produto não encontrado!");
+        }
     }
 
     private static void cadastrarProduto() {
